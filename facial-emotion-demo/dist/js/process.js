@@ -145,7 +145,12 @@ window.onload = function () {
     }
 
     function accelerate(){
-        var finalval = Math.floor(modelglobal*100*0.2 + pspiglobal/3.0*0.8)
+      var finalval = Math.floor(modelglobal*100*0.2 + pspiglobal/3.0*0.8)
+      if(modelglobal < 0.45){
+        modelglobal = (modelglobal-0.2)/(0.8-0.2) // scale 0.2-0.8 to 0-1
+        finalval =  Math.floor(modelglobal*100*0.9 + pspiglobal/3.0*0.1)
+      }
+
       change_gauge(chart,"Gauge",[finalval, 100-finalval]);
       document.getElementById("pspi-val").innerHTML="Pain Index: "+finalval +"%";
         if(finalval<50){document.getElementById("threshold").innerHTML="LOW";}
