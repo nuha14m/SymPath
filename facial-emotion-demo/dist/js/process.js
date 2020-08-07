@@ -219,6 +219,28 @@ detector.addEventListener("onImageResultsSuccess", function(faces, image, timest
     engglobal =faces[0].emotions["engagement"]
     var expr =faces[0].expressions;
     var pspi = expr["browFurrow"] + Math.max(expr["cheekRaise"], expr["lidTighten"]) + Math.max(expr["noseWrinkle"], expr["upperLipRaise"]) + expr["eyeClosure"];
+
+    var all = faces[0]
+    const url = "http://makeathon.us-east-1.elasticbeanstalk.com/"; 
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+        all
+    }));
+    xhr.responseType = 'text';
+
+    var txtResp = ""
+    xhr.onload = function () {
+        if (xhr.readyState === xhr.DONE) {
+            if (xhr.status === 200) {
+                console.log(xhr.response);
+                txtResp = xhr.responseText
+            }
+        }
+    };
+
     pscount+=1;
     pspiarr.push(pspi);
     if(pscount==1){
