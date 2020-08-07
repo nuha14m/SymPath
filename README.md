@@ -1,2 +1,2 @@
 # SymPath
-SymPath is an objective, pain-detection tool based on emotion detection and voice analysis using machine learning. It can be an asset to physicians and patients in a telehealth setting.
+SymPath is an objective, pain-detection tool powered by a multi-modal machine learning algorithm using emotion detection and voice analysis. It can be an asset to physicians and patients in a telehealth setting.
