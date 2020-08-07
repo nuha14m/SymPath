@@ -147,7 +147,7 @@ window.onload = function () {
     function accelerate(){
         var finalval = Math.floor(modelglobal*100*0.2 + pspiglobal/3.0*0.8)
       change_gauge(chart,"Gauge",[finalval, 100-finalval]);
-      document.getElementById("pspi-val").innerHTML="Pain Index: "+finalval;
+      document.getElementById("pspi-val").innerHTML="Pain Index: "+finalval +"%";
         if(finalval<50){document.getElementById("threshold").innerHTML="LOW";}
         else if(finalval<80){document.getElementById("threshold").innerHTML="MILD";}
         else{document.getElementById("threshold").innerHTML="HIGH";}
