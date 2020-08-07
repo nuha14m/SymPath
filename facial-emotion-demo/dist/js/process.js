@@ -1,4 +1,5 @@
 var pspiglobal = 0;
+var modelglobal = 0;
 var pspiarr =[]
 var pscount=0;
 var engglobal =0;
@@ -85,7 +86,7 @@ window.onload = function () {
             labels : ["Red","Green"],
             datasets: [{
                 label: "Gauge",
-                data : [0, 300],
+                data : [0, 100],
                 backgroundColor: [
                     "rgb(255, 99, 132)",
                     "rgb(147, 224, 130)",
@@ -144,10 +145,11 @@ window.onload = function () {
     }
 
     function accelerate(){
-      change_gauge(chart,"Gauge",[pspiglobal, 300-pspiglobal]);
-      document.getElementById("pspi-val").innerHTML="Pain Index: "+pspiglobal;
-        if(pspiglobal<100){document.getElementById("threshold").innerHTML="LOW";}
-        else if(pspiglobal<200){document.getElementById("threshold").innerHTML="MILD";}
+        var finalval = Math.floor(modelglobal*100*0.2 + pspiglobal/3.0*0.8)
+      change_gauge(chart,"Gauge",[finalval, 100-finalval]);
+      document.getElementById("pspi-val").innerHTML="Pain Index: "+finalval;
+        if(finalval<50){document.getElementById("threshold").innerHTML="LOW";}
+        else if(finalval<80){document.getElementById("threshold").innerHTML="MILD";}
         else{document.getElementById("threshold").innerHTML="HIGH";}
         var engbar = document.getElementById("eng-bar");
         engbar.innerHTML = Math.floor(engglobal) + "%";
@@ -230,13 +232,14 @@ detector.addEventListener("onImageResultsSuccess", function(faces, image, timest
         all
     }));
     xhr.responseType = 'text';
-
     var txtResp = ""
     xhr.onload = function () {
         if (xhr.readyState === xhr.DONE) {
             if (xhr.status === 200) {
-                console.log(xhr.response);
                 txtResp = xhr.responseText
+                txtResp = txtResp.substr(1, txtResp.length-2)
+                modelglobal = parseFloat(txtResp)
+                console.log(modelglobal);
             }
         }
     };
